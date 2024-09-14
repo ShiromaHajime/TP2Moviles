@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TP2</string>
+    <string name="title_activity_juego">Juego</string>
+    <string name="title_activity_resultado">Resultado</string>
 </resources>
