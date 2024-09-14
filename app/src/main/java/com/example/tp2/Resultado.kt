@@ -11,11 +11,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tp2.data.DataStoreManager
 import com.example.tp2.ui.theme.TP2Theme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class Resultado : ComponentActivity() {
+    private val dataStoreManager by lazy { DataStoreManager(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,6 +41,14 @@ class Resultado : ComponentActivity() {
                         finish()
                     }
                 )
+            }
+        }
+
+        // Update max score
+        CoroutineScope(Dispatchers.IO).launch {
+            val currentMaxScore = dataStoreManager.maxScoreFlow.first()
+            if (puntos > currentMaxScore) {
+                dataStoreManager.updateMaxScore(puntos)
             }
         }
     }
@@ -69,17 +83,5 @@ fun ResultadoScreen(
         ) {
             Text(text = "Jugar otra vez")
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ResultadoScreenPreview() {
-    TP2Theme {
-        ResultadoScreen(
-            puntos = 1,
-            volverInicio = {},
-            volverAJugar = {}
-        )
     }
 }
