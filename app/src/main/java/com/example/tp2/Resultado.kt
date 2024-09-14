@@ -20,7 +20,7 @@ class Resultado : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val puntos = intent.getIntExtra("puntos", 0)
+        val puntos = intent.getIntExtra("PUNTAJE_FINAL", 0)
 
         setContent {
             TP2Theme {
