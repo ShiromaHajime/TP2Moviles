@@ -44,7 +44,6 @@ class Resultado : ComponentActivity() {
             }
         }
 
-        // Update max score
         CoroutineScope(Dispatchers.IO).launch {
             val currentMaxScore = dataStoreManager.maxScoreFlow.first()
             if (puntos > currentMaxScore) {

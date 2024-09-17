@@ -40,7 +40,7 @@ fun JuegoScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current  // Obtenemos el contexto
 
     var numeroAleatorio by remember { mutableStateOf(generarNumeroAleatorio()) }
-    var puntaje by remember { mutableStateOf(0) } // Usamos mutableStateOf para el puntaje
+    var puntaje by remember { mutableStateOf(0) }
     var perdidas by remember { mutableStateOf(0) }
 
     Column(
@@ -50,7 +50,6 @@ fun JuegoScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Texto que muestra un mensaje
         Text(text = "Adiviná el número")
 
         Text(
@@ -58,7 +57,6 @@ fun JuegoScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(top = 16.dp)
         )
 
-        // Texto que muestra el número aleatorio
         Text(
             text = "Número generado: $numeroAleatorio",
             modifier = Modifier.padding(top = 16.dp)
@@ -71,9 +69,7 @@ fun JuegoScreen(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón que regenera el número aleatorio
         Button(onClick = {
-            // Al presionar el botón, se genera un nuevo número aleatorio
             numeroAleatorio = generarNumeroAleatorio()
         }) {
             Text(text = "Regenerar número")
@@ -81,7 +77,6 @@ fun JuegoScreen(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Fila de 5 botones
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -89,18 +84,15 @@ fun JuegoScreen(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Crea 5 botones
             repeat(5) { index ->
                 Button(
                     onClick = {
-                        // Verifica si el número del botón coincide con el número generado
                         if (index + 1 == numeroAleatorio) {
                             perdidas = 0
-                            puntaje += 10 // Incrementa el puntaje
-                            numeroAleatorio = generarNumeroAleatorio() // Genera un nuevo número aleatorio
+                            puntaje += 10
+                            numeroAleatorio = generarNumeroAleatorio()
                         } else {
                             if (perdidas == 4) {
-                                // Pasamos el puntaje a la actividad Resultado
                                 val intent = Intent(context, Resultado::class.java).apply {
                                     putExtra("PUNTAJE_FINAL", puntaje)
                                 }
